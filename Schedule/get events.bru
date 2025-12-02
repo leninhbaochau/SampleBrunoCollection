@@ -1,0 +1,27 @@
+meta {
+  name: get events
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/api/v1/schedule/events
+  body: none
+  auth: inherit
+}
+
+headers {
+  X-Cybozu-Authorization: Y3lib3p1OmN5Ym96dQ==
+  Content-Type: application/json
+}
+
+assert {
+  ~res.status: eq 200
+  ~res.body: isJson
+  ~res.body.title: startsWith abc
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
