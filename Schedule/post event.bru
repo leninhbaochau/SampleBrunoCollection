@@ -1,0 +1,66 @@
+meta {
+  name: post event
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{base_url}}/api/internal/schedule/events
+  body: json
+  auth: inherit
+}
+
+headers {
+  X-Cybozu-Authorization: Y3lib3p1OmN5Ym96dQ==
+  Content-Type: application/json
+}
+
+body:json {
+  {
+      "eventType": "REGULAR",
+      "subject": "Regular Appointment ",
+      // "notes": "This is notes.\nYou can write multiple lines.",
+      "visibilityType": "PUBLIC",
+      "start": {
+          "dateTime": "2025-12-06T14:00:00+09:00",
+          "timeZone": "Asia/Tokyo"
+      },
+      "end": {
+          "dateTime": "2025-12-06T15:00:00+09:00",
+          "timeZone": "Asia/Tokyo"
+      },
+      //   "isAllDay": "false",
+      //   "isStartOnly": "false",
+      "attendees": [
+          {
+              "type": "USER",
+              "id": "1",
+              "code": "cybozu"
+          }
+      ],
+      "watchers": [
+          {
+              "type": "USER",
+              "code": "cybozu",
+              "id": "1"
+          }
+      ]
+  }
+}
+
+script:pre-request {
+  /*let i = parseInt(bru.iterationData.get("index"));
+  let startTime = new Date("2025-11-20T03:00:00+09:00");
+  startTime.setMinutes(startTime.getMinutes() + (i - 1) * 30);
+  
+  let endTime = new Date(startTime);
+  endTime.setHours(endTime.getHours() + 1);
+  bru.setVar("startDateTime", startTime.toISOString());
+  bru.setVar("endDateTime", endTime.toISOString());
+  */
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
